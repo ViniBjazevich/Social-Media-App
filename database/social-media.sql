@@ -1,0 +1,88 @@
+USE SocialMediaDB;
+
+DROP TABLE IF EXISTS likes;
+DROP TABLE IF EXISTS post;
+DROP TABLE IF EXISTS follow;
+DROP TABLE IF EXISTS users;
+
+CREATE TABLE users (
+	id serial PRIMARY KEY,
+	username VARCHAR ( 50 ) UNIQUE NOT NULL,
+	password VARCHAR ( 50 ) NOT NULL,
+	email VARCHAR ( 255 ) UNIQUE NOT NULL,
+	created_on TIMESTAMP NOT NULL,
+	last_login TIMESTAMP
+);
+
+CREATE TABLE follow (
+	id serial PRIMARY KEY,
+	leader int references users(id),
+	follower int references users(id)
+);
+
+CREATE TABLE post (
+	id serial PRIMARY KEY,
+	author int references users(id),
+	body VARCHAR ( 300 ) NOT NULL,
+	like_count int DEFAULT 0
+);
+
+CREATE TABLE likes (
+	id serial PRIMARY KEY,
+	liker int references users(id),
+	post_id int references post(id)
+);
+
+
+INSERT INTO users (username, password, email, created_on)
+	VALUES  ('@goat', 'biggoat', 'goat@gmail.com', current_timestamp),
+          ('@bill', 'billguy', 'bill@gmail.com', current_timestamp),
+          ('@preston', 'montoya', 'pman@gmail.com', current_timestamp);
+
+INSERT INTO post (author, body)
+	VALUES (1, 'This is my first post!!!');
+
+INSERT INTO follow (leader, follower)
+	VALUES  (1,2),
+          (1,3),
+          (2,3),
+          (2,1),
+          (3,2);
+
+UPDATE post
+	SET like_count = 1
+	WHERE id = 1;
+
+INSERT INTO likes (liker, post_id)
+	VALUES (3,1);
+
+SELECT * FROM users;
+SELECT * FROM post;
+
+-- All follows for all users
+SELECT follower_user.username AS follower, leader_user.username AS followed FROM follow
+	JOIN users AS follower_user ON follower_user.id = follow.follower
+	JOIN users AS leader_user ON leader_user.id = follow.leader;
+
+-- All followers for a specific users
+SELECT follower_user.username AS follower, leader_user.username AS followed FROM follow
+	JOIN users AS follower_user ON follower_user.id = follow.follower
+	JOIN users AS leader_user ON leader_user.id = follow.leader
+		WHERE leader_user.id = 1;
+
+-- Show who liked posts
+SELECT users.username AS liker, post.like_count AS num_of_likes, body FROM likes
+	JOIN users ON users.id = likes.liker
+	JOIN post ON post.id = likes.post_id;
+
+/*
+Enter psql shell:
+	psql postgres
+
+Run sql script:
+	\i <filepath>
+
+Quit shell:
+	\q
+
+*/
