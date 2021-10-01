@@ -1,8 +1,11 @@
-USE SocialMediaDB;
+\c SocialMediaDB;
 
+DROP TABLE IF EXISTS participant;
+DROP TABLE IF EXISTS messages;
 DROP TABLE IF EXISTS likes;
 DROP TABLE IF EXISTS post;
 DROP TABLE IF EXISTS follow;
+DROP TABLE IF EXISTS chatroom;
 DROP TABLE IF EXISTS users;
 
 CREATE TABLE users (
@@ -13,6 +16,27 @@ CREATE TABLE users (
 	created_on TIMESTAMP NOT NULL,
 	last_login TIMESTAMP
 );
+
+CREATE TABLE chatroom (
+	id serial PRIMARY KEY,
+	roomname VARCHAR ( 50 ) UNIQUE NOT NULL
+);
+
+/* INTERMEDIARY TABLES */
+CREATE TABLE participant (
+	id serial PRIMARY KEY,
+	user_id int references users(id),
+	chatroom_id int references chatroom(id)
+);
+
+CREATE TABLE messages (
+	id serial PRIMARY KEY,
+	user_id int references users(id),
+	chatroom_id int references chatroom(id),
+	body VARCHAR ( 50 ) NOT NULL,
+	time_sent TIMESTAMP
+);
+/* ---------------------- */
 
 CREATE TABLE follow (
 	id serial PRIMARY KEY,
