@@ -7,16 +7,9 @@ const port = 3001
 app.use(cors())
 app.use(express.json())
 
-app.get('/demo', (req, res) => {
+app.get('/users', (req, res) => {
   db
-    .query("SELECT * FROM demo")
-    .then(response => res.send(response.rows))
-    .catch(e => console.error(e.stack))
-})
-
-app.get('/todo', (req, res) => {
-  db
-    .query("SELECT * FROM todo")
+    .query("SELECT * FROM users")
     .then(response => res.send(response.rows))
     .catch(e => console.error(e.stack))
 })

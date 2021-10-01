@@ -3,7 +3,7 @@ const { Pool, Client } = require("pg");
 const credentials = {
   user: "vinibjazevich",
   host: "localhost",
-  database: "pernfullstackdb",
+  database: "SocialMediaDB",
   password: "",
   port: 5432,
 };

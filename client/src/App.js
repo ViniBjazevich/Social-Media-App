@@ -1,35 +1,25 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from 'axios'
+import './App.css'
 
-import AddTodoForm from './AddTodoForm'
-import ListTodos from './ListTodos';
-import SelectedItem from './SelectedItem';
+import UserList from './components/UserList/UserList'
 
-function App() {
-  const [todoList, setTodoList] = useState([])
-  const [selectedItem, setSelectedItem] = useState({})
+export default function App() {
+  const [users, setUsers] = useState([])
 
-  function getAllTodo() {
-    axios.get('http://localhost:3001/todo')
-      .then(response => setTodoList(response.data))
+  function getAllUsers() {
+    axios.get('http://localhost:3001/users')
+      .then(response => setUsers(response.data))
       .catch((e) => console.log(e))
   }
 
-
-  useEffect(() => {
-    getAllTodo()
+    useEffect(() => {
+    getAllUsers()
   }, [])
-
 
   return (
     <div>
-      <AddTodoForm getAllTodo={getAllTodo}/>
-      {selectedItem.id ? <SelectedItem selectedItem={selectedItem} getAllTodo={getAllTodo} setSelectedItem={setSelectedItem}/> : null}
-      <ListTodos todoList={todoList} setSelectedItem={setSelectedItem}/>
+      <UserList users={users}/>
     </div>
-  );
+  )
 }
-
-
-
-export default App;

@@ -84,5 +84,4 @@ Run sql script:
 
 Quit shell:
 	\q
-
 */
