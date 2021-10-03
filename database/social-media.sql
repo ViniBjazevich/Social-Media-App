@@ -80,6 +80,18 @@ UPDATE post
 INSERT INTO likes (liker, post_id)
 	VALUES (3,1);
 
+INSERT INTO chatroom (roomname)
+	VALUES ('Room1');
+
+-- Adds users goat and bill to lineup
+INSERT INTO participant (user_id, chatroom_id)
+	VALUES (1, 1),
+				(2, 1);
+
+INSERT INTO messages (user_id, chatroom_id, body, time_sent)
+	VALUES (1, 1, 'Hi everyone', current_timestamp),
+				(2, 1, 'Yo yo yo!', current_timestamp);
+
 SELECT * FROM users;
 SELECT * FROM post;
 
@@ -98,6 +110,18 @@ SELECT follower_user.username AS follower, leader_user.username AS followed FROM
 SELECT users.username AS liker, post.like_count AS num_of_likes, body FROM likes
 	JOIN users ON users.id = likes.liker
 	JOIN post ON post.id = likes.post_id;
+
+-- Show all messages in a perticular chatroom
+SELECT users.username AS sender, messages.body, chatroom.roomname FROM messages
+	JOIN chatroom ON chatroom.id = chatroom_id
+	JOIN users ON users.id = user_id
+	WHERE chatroom.id = 1;
+
+-- Show all participants in a chatroom
+SELECT users.username FROM participant
+	JOIN chatroom ON chatroom.id = chatroom_id
+	JOIN users ON users.id = user_id
+	WHERE chatroom.id = 1;
 
 /*
 Enter psql shell:
