@@ -1,4 +1,6 @@
 .message {
   border: 1px solid black;
   background-color: bisque;
+  margin: 1rem;
+  padding: 1rem;
 }

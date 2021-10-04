@@ -1,0 +1,17 @@
+.userList {
+  border: solid 1px black;
+  background-color: lightgray;
+  margin: 1rem;
+}
+
+.user {
+  border: 1px solid black;
+  background-color: bisque;
+  margin: 1rem;
+  padding: 1rem;
+}
+
+.userListTitle {
+  margin: 1rem;
+  font-size: 30px;
+}

@@ -1,4 +1,10 @@
 .chatroom {
   border: solid 1px black;
   background-color: lightgray;
+  margin: 1rem;
+}
+
+.roomname {
+  margin: 1rem;
+  font-size: 30px;
 }

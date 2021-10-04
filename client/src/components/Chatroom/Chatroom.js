@@ -21,7 +21,7 @@ export default function Chatroom({ room }) {
 
   return (
     <div className="chatroom">
-      <h2>{room.roomname}</h2>
+      <div className="roomname">{room.roomname}</div>
       <MessagesList messages={messages}/>
     </div>
   )

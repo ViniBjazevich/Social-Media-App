@@ -1,9 +1,10 @@
 import React from 'react'
+import './User.css'
 
 export default function User({ user }) {
   return (
-    <div>
-      {user?.username}
+    <div className="user">
+      <div>{user?.username}</div>
     </div>
   )
 }
