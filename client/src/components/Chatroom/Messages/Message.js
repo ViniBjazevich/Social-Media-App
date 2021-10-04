@@ -4,7 +4,7 @@ import './Message.css'
 export default function Message({ message }) {
   return (
     <div className="message">
-      <h4>{message.sender}</h4>
+      <div className="sender">{message.sender}</div>
       <div>{message.body}</div>
     </div>
   )

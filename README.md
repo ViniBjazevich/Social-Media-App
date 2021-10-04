@@ -9,3 +9,4 @@
   * $ npm i
   * $ npm start
 
+![Test Image 3](./DatabaseERD.jpg)
