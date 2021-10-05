@@ -4,8 +4,36 @@ const app = express()
 const cors = require('cors')
 const port = 3001
 
+//oath
+const session = require('express-session');
+const { ExpressOIDC } = require('@okta/oidc-middleware');
+
+// Add cors for specific urls: (client, okta)
 app.use(cors())
 app.use(express.json())
+
+// session support is required to use ExpressOIDC
+// app.use(session({
+//   secret: 'this should be secure',
+//   resave: true,
+//   saveUninitialized: false
+// }));
+
+//   const oidc = new ExpressOIDC({
+//     appBaseUrl: 'http://localhost:3000',
+//     issuer: 'https://dev-42172017.okta.com/oauth2/auss5kkzkkzYune155e6',
+//     client_id: '0oa23m9fjagw18I3S5d7',
+//     client_secret: '_vbUpP8sEK8hDmYg5Dc-TNxpUcEBuHVkmsLwMoLB',
+//     redirect_uri: 'http://localhost:3000/authorization-code/callback',
+//     scope: 'openid profile'
+//   })
+
+// If the user isn't authenticated, they are redirected to the sign-in page
+// app.all('*', oidc.ensureAuthenticated());
+
+// ExpressOIDC attaches handlers for the /login and /authorization-code/callback routes
+// app.use(oidc.router)
+
 
 app.get('/users', (req, res) => {
   db
@@ -33,50 +61,6 @@ app.get('/messages/:room_id', (req, res) => {
     .then(response => res.status(200).send(response.rows))
     .catch(e => console.log(e))
 })
-
-
-
-
-
-// ---------------------- TODO EXAMPLE --------------------------------
-
-app.get('/', (req, res) => {
-  res.send('Hello there!')
-})
-
-app.post('/todo', (req, res) => {
-  let { todo } = req.body;
-
-  db
-    .query(`INSERT INTO todo (todo) VALUES ('${todo}')`)
-    .then(() => res.status(200).send('Item added'))
-    .catch(e => console.log(e))
-})
-
-app.put('/todo/:id', (req, res) => {
-  let { todo } = req.body;
-  let { id } = req.params;
-
-  db
-    .query(`UPDATE todo SET todo = '${todo}' WHERE id = ${id}`)
-    .then(response => res.status(200).send(`Updated item to ${todo}`))
-    .catch(e => console.log(e))
-})
-
-app.delete('/todo/:id', (req, res) => {
-  let { id } = req.params;
-
-  db
-    .query(`DELETE FROM todo WHERE id = ${id}`)
-    .then(response => res.status(200).send(`Deleted item with ID: ${id}`))
-    .catch(e => console.log(e))
-})
-
-// ---------------------- TODO EXAMPLE --------------------------------
-
-
-
-
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
