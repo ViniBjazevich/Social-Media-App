@@ -15,8 +15,9 @@ export default function Chatroom({ room }) {
       .catch((e) => console.log(e))
   }
 
-    useEffect(() => {
+  useEffect(() => {
     getAllMessagesForChatroom()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (

@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from 'react'
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom" // NOT USED YET
+import firebase from './Firebase' // eslint-disable-line
+import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom" // eslint-disable-line
 import axios from 'axios'
 import './App.css'
 
 import UserList from './components/User/UserList'
 import ChatroomList from './components/Chatroom/ChatroomList'
+import CreateNewUserForm from './components/SignIn/NewUser'
+import SignInForm from './components/SignIn/SignInForm';
+
 
 export default function App() {
   const [users, setUsers] = useState([])
@@ -23,18 +28,42 @@ export default function App() {
       .catch((e) => console.log(e))
   }
 
-    useEffect(() => {
+  function handleSignOut() {
+    const auth = getAuth()
+    signOut(auth).then(() => {
+      console.log('User is now signed out')
+    }).catch((error) => {
+      console.log(error)
+    });
+  }
+
+  useEffect(() => {
     getAllUsers()
     getAllChatrooms()
+
+    const auth = getAuth()
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const uid = user.uid;
+        console.log(`${uid} is signed in`)
+      } else {
+        console.log('User is signed out.')
+      }
+    })
   }, [])
 
   return (
     <div>
+      <div>Sign Up</div>
+      <CreateNewUserForm />
+      <div>Sign In</div>
+      <SignInForm />
+      <button onClick={handleSignOut}>Sign Out</button>
+      <h3>Test Account</h3>
+      <div>Username: a@gmail.com</div>
+      <div>Password: 123123</div>
       <UserList users={users}/>
       <ChatroomList chatrooms={chatrooms}/>
-      <form method="get" action="/login">
-        <button type="submit">Log In</button>
-      </form>
     </div>
   )
 }
