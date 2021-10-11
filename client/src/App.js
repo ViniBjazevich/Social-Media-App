@@ -9,7 +9,7 @@ import UserList from './components/User/UserList'
 import ChatroomList from './components/Chatroom/ChatroomList'
 import NewUserForm from './components/LoginStatus/NewUserForm'
 import SignInForm from './components/LoginStatus/SignInForm'
-import LoginWithGoogleButton from './components/LoginStatus/LoginWithGoogleButton';
+// import LoginWithGoogleButton from './components/LoginStatus/LoginWithGoogleButton';
 import LogoutButton from './components/LoginStatus/LogoutButton';
 
 
@@ -52,7 +52,6 @@ export default function App() {
       <NewUserForm getAllUsers={getAllUsers}/>
       <div>Sign In</div>
       <SignInForm />
-      <LoginWithGoogleButton />
       <LogoutButton />
       <h3>Test Account</h3>
       <div>Username: a@gmail.com</div>
