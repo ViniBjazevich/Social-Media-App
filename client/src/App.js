@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import firebase from './Firebase' // eslint-disable-line
-import { getAuth, onAuthStateChanged, signOut, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom" // eslint-disable-line
 import axios from 'axios'
 import './App.css'
 
 import UserList from './components/User/UserList'
 import ChatroomList from './components/Chatroom/ChatroomList'
-import CreateNewUserForm from './components/SignIn/NewUser'
-import SignInForm from './components/SignIn/SignInForm';
+import NewUserForm from './components/LoginStatus/NewUserForm'
+import SignInForm from './components/LoginStatus/SignInForm'
+import LoginWithGoogleButton from './components/LoginStatus/LoginWithGoogleButton';
+import LogoutButton from './components/LoginStatus/LogoutButton';
+
 
 
 export default function App() {
@@ -26,27 +29,6 @@ export default function App() {
     axios.get('http://localhost:3001/chatrooms')
       .then(response => setChatrooms(response.data))
       .catch((e) => console.log(e))
-  }
-
-  function handleGoogleSignIn() {
-    const auth = getAuth();
-    const provider = new GoogleAuthProvider();
-    
-    signInWithPopup(auth, provider)
-      .then((result) => {
-        console.log('Google sign in worked!')
-      }).catch((error) => {
-        console.log(error)
-      });
-  }
-
-  function handleSignOut() {
-    const auth = getAuth()
-    signOut(auth).then(() => {
-      console.log('User is now signed out')
-    }).catch((error) => {
-      console.log(error)
-    });
   }
 
   useEffect(() => {
@@ -67,11 +49,11 @@ export default function App() {
   return (
     <div>
       <div>Sign Up</div>
-      <CreateNewUserForm />
+      <NewUserForm />
       <div>Sign In</div>
       <SignInForm />
-      <button onClick={handleGoogleSignIn}>Sign In with Google</button>
-      <button onClick={handleSignOut}>Sign Out</button>
+      <LoginWithGoogleButton />
+      <LogoutButton />
       <h3>Test Account</h3>
       <div>Username: a@gmail.com</div>
       <div>Password: 123123</div>

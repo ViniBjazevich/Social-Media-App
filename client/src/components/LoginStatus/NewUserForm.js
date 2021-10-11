@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
-export default function NewUser() {
+export default function NewUserForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
