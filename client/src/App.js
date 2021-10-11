@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import firebase from './Firebase' // eslint-disable-line
-import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
+import { getAuth, onAuthStateChanged, signOut, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom" // eslint-disable-line
 import axios from 'axios'
 import './App.css'
@@ -26,6 +26,30 @@ export default function App() {
     axios.get('http://localhost:3001/chatrooms')
       .then(response => setChatrooms(response.data))
       .catch((e) => console.log(e))
+  }
+
+  function handleGoogleSignIn() {
+
+const auth = getAuth();
+  const provider = new GoogleAuthProvider();
+  signInWithPopup(auth, provider)
+    .then((result) => {
+      // This gives you a Google Access Token. You can use it to access the Google API.
+      const credential = GoogleAuthProvider.credentialFromResult(result);
+      const token = credential.accessToken;
+      // The signed-in user info.
+      const user = result.user;
+      // ...
+    }).catch((error) => {
+      // Handle Errors here.
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      // The email of the user's account used.
+      const email = error.email;
+      // The AuthCredential type that was used.
+      const credential = GoogleAuthProvider.credentialFromError(error);
+      // ...
+    });
   }
 
   function handleSignOut() {
@@ -58,6 +82,7 @@ export default function App() {
       <CreateNewUserForm />
       <div>Sign In</div>
       <SignInForm />
+      <button onClick={handleGoogleSignIn}>Sign In with Google</button>
       <button onClick={handleSignOut}>Sign Out</button>
       <h3>Test Account</h3>
       <div>Username: a@gmail.com</div>
