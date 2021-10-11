@@ -49,7 +49,7 @@ export default function App() {
   return (
     <div>
       <div>Sign Up</div>
-      <NewUserForm />
+      <NewUserForm getAllUsers={getAllUsers}/>
       <div>Sign In</div>
       <SignInForm />
       <LoginWithGoogleButton />

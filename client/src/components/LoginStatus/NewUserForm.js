@@ -1,13 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import axios from 'axios'
 
-export default function NewUserForm() {
+export default function NewUserForm({ getAllUsers }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  useEffect(() => {
-
-  }, [])
+  const [username, setUsername] = useState("");
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -16,8 +14,15 @@ export default function NewUserForm() {
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
-        console.log(`Success! User ${user} was created.`)
-      })
+        const id = user.uid;
+        console.log(`Success! User ${user.uid} was created.`)
+        axios.post(`http://localhost:3001/user`, {id, username: `@${username}`, email})
+          .then(() => {
+            console.log(`${username} was created!`)
+            getAllUsers()
+          })
+          .catch(error => console.log(error))
+          })
       .catch((error) => {
         console.log(error)
       });
@@ -25,6 +30,14 @@ export default function NewUserForm() {
 
   return (
     <form onSubmit={handleSubmit}>
+      <input
+        value={username}
+        onChange={e => setUsername(e.target.value)}
+        placeholder="Username"
+        type="username"
+        name="username"
+        required
+      />
       <input
         value={email}
         onChange={e => setEmail(e.target.value)}

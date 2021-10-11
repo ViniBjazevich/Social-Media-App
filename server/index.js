@@ -35,6 +35,16 @@ app.get('/messages/:room_id', (req, res) => {
     .catch(e => console.log(e))
 })
 
+
+app.post('/user', (req, res) => {
+  let { id, username, email } = req.body;
+  db
+    .query(`INSERT INTO users (id, username, email, created_on)
+          VALUES  ('${id}', '${username}', '${email}', current_timestamp);`)
+    .then(response => res.status(200).send(response.rows))
+    .catch(e => console.log(e))
+})
+
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
 })
