@@ -11,12 +11,14 @@ import NewUserForm from './components/LoginStatus/NewUserForm'
 import SignInForm from './components/LoginStatus/SignInForm'
 // import LoginWithGoogleButton from './components/LoginStatus/LoginWithGoogleButton';
 import LogoutButton from './components/LoginStatus/LogoutButton';
+import Test from './components/Test';
 
-
+export const UserContext = React.createContext()
 
 export default function App() {
   const [users, setUsers] = useState([])
   const [chatrooms, setChatrooms] = useState([])
+  const [user, setUser] = useState({})
 
 
   function getAllUsers() {
@@ -40,24 +42,29 @@ export default function App() {
       if (user) {
         const uid = user.uid;
         console.log(`${uid} is signed in`)
+        setUser(user)
       } else {
         console.log('User is signed out.')
+        setUser({})
       }
     })
   }, [])
 
   return (
-    <div>
-      <div>Sign Up</div>
-      <NewUserForm getAllUsers={getAllUsers}/>
-      <div>Sign In</div>
-      <SignInForm />
-      <LogoutButton />
-      <h3>Test Account</h3>
-      <div>Username: a@gmail.com</div>
-      <div>Password: 123123</div>
-      <UserList users={users}/>
-      <ChatroomList chatrooms={chatrooms}/>
-    </div>
+    <>
+      <UserContext.Provider value={user}>
+        <Test/>
+        <div>Sign Up</div>
+        <NewUserForm getAllUsers={getAllUsers}/>
+        <div>Sign In</div>
+        <SignInForm />
+        <LogoutButton />
+        <h3>Test Account</h3>
+        <div>Username: a@gmail.com</div>
+        <div>Password: 123123</div>
+        <UserList users={users}/>
+        <ChatroomList chatrooms={chatrooms}/>
+      </UserContext.Provider>
+    </>
   )
 }
