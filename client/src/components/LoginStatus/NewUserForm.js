@@ -29,32 +29,35 @@ export default function NewUserForm({ getAllUsers }) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        value={username}
-        onChange={e => setUsername(e.target.value)}
-        placeholder="Username"
-        type="username"
-        name="username"
-        required
-      />
-      <input
-        value={email}
-        onChange={e => setEmail(e.target.value)}
-        placeholder="Email address"
-        type="email"
-        name="email"
-        required
-      />
-      <input
-        value={password}
-        onChange={e => setPassword(e.target.value)}
-        placeholder="Password"
-        type="password"
-        name="password"
-        required
-      />
-      <button type="submit">Submit</button>
-    </form>
+    <>
+      <div>Sign Up:</div>
+      <form onSubmit={handleSubmit}>
+        <input
+          value={username}
+          onChange={e => setUsername(e.target.value)}
+          placeholder="Username"
+          type="username"
+          name="username"
+          required
+        />
+        <input
+          value={email}
+          onChange={e => setEmail(e.target.value)}
+          placeholder="Email address"
+          type="email"
+          name="email"
+          required
+        />
+        <input
+          value={password}
+          onChange={e => setPassword(e.target.value)}
+          placeholder="Password"
+          type="password"
+          name="password"
+          required
+        />
+        <button type="submit">Submit</button>
+      </form>
+    </>
   );
 }

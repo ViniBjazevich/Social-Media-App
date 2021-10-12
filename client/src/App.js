@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import firebase from './Firebase' // eslint-disable-line
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom" // eslint-disable-line
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 import axios from 'axios'
 import './App.css'
 
@@ -53,17 +53,22 @@ export default function App() {
   return (
     <>
       <UserContext.Provider value={user}>
-        <Test/>
-        <div>Sign Up</div>
-        <NewUserForm getAllUsers={getAllUsers}/>
-        <div>Sign In</div>
-        <SignInForm />
-        <LogoutButton />
-        <h3>Test Account</h3>
-        <div>Username: a@gmail.com</div>
-        <div>Password: 123123</div>
-        <UserList users={users}/>
-        <ChatroomList chatrooms={chatrooms}/>
+        <Router>
+          <Switch>
+            <Route exact path="/">
+              <Test/>
+              <NewUserForm getAllUsers={getAllUsers}/>
+              <SignInForm />
+              <LogoutButton />
+            </Route>
+            <Route path="/chatrooms">
+              <ChatroomList chatrooms={chatrooms}/>
+            </Route>
+            <Route path="/users">
+              <UserList users={users}/>
+            </Route>
+          </Switch>
+        </Router>
       </UserContext.Provider>
     </>
   )

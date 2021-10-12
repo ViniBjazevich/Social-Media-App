@@ -24,24 +24,32 @@ export default function SignInForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        value={email}
-        onChange={e => setEmail(e.target.value)}
-        placeholder="Email address"
-        type="email"
-        name="email"
-        required
-      />
-      <input
-        value={password}
-        onChange={e => setPassword(e.target.value)}
-        placeholder="Password"
-        type="password"
-        name="password"
-        required
-      />
-      <button type="submit">Submit</button>
-    </form>
+    <>
+      <div>Sign In:</div>
+      <form onSubmit={handleSubmit}>
+        <input
+          value={email}
+          onChange={e => setEmail(e.target.value)}
+          placeholder="Email address"
+          type="email"
+          name="email"
+          required
+        />
+        <input
+          value={password}
+          onChange={e => setPassword(e.target.value)}
+          placeholder="Password"
+          type="password"
+          name="password"
+          required
+        />
+        <button type="submit">Submit</button>
+      </form>
+      <div style={{border: 'solid 1px black', background: 'lightblue', width: 'fit-content', padding: '5px'}}>
+        <h3>Test Account</h3>
+        <div>Username: a@gmail.com</div>
+        <div>Password: 123123</div>
+      </div>
+    </>
   );
 }
