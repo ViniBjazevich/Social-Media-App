@@ -1,13 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
-export default function SignInForm() {
+export default function SignInForm({ setAlreadyHaveAccount }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  useEffect(() => {
-
-  }, [])
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -45,6 +41,7 @@ export default function SignInForm() {
         />
         <button type="submit">Submit</button>
       </form>
+      <button onClick={() => setAlreadyHaveAccount((prev) => !prev)}>Need to create an account?</button>
       <div style={{border: 'solid 1px black', background: 'lightblue', width: 'fit-content', padding: '5px'}}>
         <h3>Test Account</h3>
         <div>Username: a@gmail.com</div>

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import axios from 'axios'
 
-export default function NewUserForm({ getAllUsers }) {
+export default function NewUserForm({ getAllUsers, setAlreadyHaveAccount }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
@@ -58,6 +58,7 @@ export default function NewUserForm({ getAllUsers }) {
         />
         <button type="submit">Submit</button>
       </form>
+      <button onClick={() => setAlreadyHaveAccount((prev) => !prev)}>Already have an account?</button>
     </>
   );
 }

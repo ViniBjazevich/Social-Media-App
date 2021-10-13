@@ -12,6 +12,7 @@ import SignInForm from './components/LoginStatus/SignInForm'
 // import LoginWithGoogleButton from './components/LoginStatus/LoginWithGoogleButton';
 import LogoutButton from './components/LoginStatus/LogoutButton';
 import Test from './components/Test';
+import Login from './components/LoginStatus/Login';
 
 export const UserContext = React.createContext()
 
@@ -50,6 +51,7 @@ export default function App() {
     })
   }, [])
 
+
   return (
     <>
       <UserContext.Provider value={user}>
@@ -57,9 +59,8 @@ export default function App() {
           <Switch>
             <Route exact path="/">
               <Test/>
-              <NewUserForm getAllUsers={getAllUsers}/>
-              <SignInForm />
-              <LogoutButton />
+              <Login getAllUsers={getAllUsers}/>
+              {user?.uid ? <LogoutButton /> : null}
             </Route>
             <Route path="/chatrooms">
               <ChatroomList chatrooms={chatrooms}/>
