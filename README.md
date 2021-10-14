@@ -1,6 +1,6 @@
 # Social-Media-App
 
-# Start Application:
+## Start Application:
 - Start server:
   * $ npm i
   * $ npm run start-server
@@ -9,6 +9,6 @@
   * $ npm i
   * $ npm start
 
-# Databse ERD:
+## Databse ERD:
 ![Database](/DatabaseERD.png)
 
