@@ -19,6 +19,8 @@ export default function PostList() {
     updatePosts()
   }, [])
 
+  console.log(posts);
+
   return (
     <div>
       <CreatePostForm updatePosts={updatePosts}/>

@@ -27,7 +27,7 @@ app.post('/getPosts', (req, res) => {
   let { author } = req.body;
 
   db
-    .query(`SELECT * FROM post JOIN users ON users.id = author WHERE users.id = '${author}';`)
+    .query(`SELECT post.id AS id, body, username, like_count, created_on FROM post JOIN users ON users.id = author WHERE users.id = '${author}';`)
     .then(response => {
       console.log('response: ', response.rows)
       console.log(req.body)
