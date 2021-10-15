@@ -122,6 +122,9 @@ SELECT users.username FROM participant
 	JOIN users ON users.id = user_id
 	WHERE chatroom.id = 1;
 
+SELECT * FROM posts
+	JOIN users ON users.id = user_id;
+
 /*
 Enter psql shell:
 	psql postgres

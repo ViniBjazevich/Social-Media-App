@@ -8,7 +8,7 @@ export default function NewUserForm({ getAllUsers, setAlreadyHaveAccount }) {
   const [username, setUsername] = useState("");
 
   function handleSubmit(e) {
-    e.preventDefault();
+    e.preventDefault()
 
     const auth = getAuth();
     createUserWithEmailAndPassword(auth, email, password)
@@ -20,6 +20,9 @@ export default function NewUserForm({ getAllUsers, setAlreadyHaveAccount }) {
           .then(() => {
             console.log(`${username} was created!`)
             getAllUsers()
+            setEmail("")
+            setPassword("")
+            setUsername("")
           })
           .catch(error => console.log(error))
           })

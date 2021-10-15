@@ -22,6 +22,20 @@ app.get('/chatrooms', (req, res) => {
     .catch(e => console.error(e.stack))
 })
 
+// Used post as get request because i am unable to send userID in params
+app.post('/getPosts', (req, res) => {
+  let { author } = req.body;
+
+  db
+    .query(`SELECT * FROM post JOIN users ON users.id = author WHERE users.id = '${author}';`)
+    .then(response => {
+      console.log('response: ', response.rows)
+      console.log(req.body)
+      res.send(response.rows)
+      })
+    .catch(e => console.error(e.stack))
+})
+
 
 app.get('/messages/:room_id', (req, res) => {
   let { room_id } = req.params;
@@ -41,6 +55,14 @@ app.post('/user', (req, res) => {
   db
     .query(`INSERT INTO users (id, username, email, created_on)
           VALUES  ('${id}', '${username}', '${email}', current_timestamp);`)
+    .then(response => res.status(200).send(response.rows))
+    .catch(e => console.log(e))
+})
+
+app.post('/post', (req, res) => {
+  let { userID, body } = req.body;
+  db
+    .query(`INSERT INTO post (author, body) VALUES ('${userID}', '${body}');`)
     .then(response => res.status(200).send(response.rows))
     .catch(e => console.log(e))
 })

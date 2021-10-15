@@ -13,6 +13,8 @@ import SignInForm from './components/LoginStatus/SignInForm'
 import LogoutButton from './components/LoginStatus/LogoutButton';
 import Test from './components/Test';
 import Login from './components/LoginStatus/Login';
+import CreatePostForm from './components/Post/CreatePostForm';
+import PostList from './components/Post/PostList';
 
 export const UserContext = React.createContext()
 
@@ -61,6 +63,9 @@ export default function App() {
               <Test/>
               <Login getAllUsers={getAllUsers}/>
               {user?.uid ? <LogoutButton /> : null}
+            </Route>
+            <Route path="/post">
+              <PostList />
             </Route>
             <Route path="/chatrooms">
               <ChatroomList chatrooms={chatrooms}/>
